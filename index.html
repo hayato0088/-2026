@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台湾旅行 2026</title>
+<style>
+  :root{
+    --cream:#FFF6E9;
+    --navy:#1B2A4A;
+    --navy2:#2C3E66;
+    --ink:#2B2B2B;
+    --muted:#6B6B6B;
+    --line:#EADFC8;
+    --accent:#C0392B;
+    --bar-bg:#EFE3CC;
+    --bar-fill:#1B2A4A;
+    --chip-decided-bg:#1B2A4A;
+    --chip-decided-fg:#FFFFFF;
+    --chip-candidate-bg:#FFF3B0;
+    --chip-candidate-fg:#5A4A00;
+    --chip-idea-bg:#E8E8E8;
+    --chip-idea-fg:#444444;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+    font-size:17px;
+    line-height:1.7;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:0 16px 48px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:linear-gradient(160deg,#101A33 0%,#1B2A4A 45%,#3D2C5E 100%);
+    color:#FFFFFF;
+    padding:56px 20px 44px;
+    text-align:center;
+  }
+  .hero .kicker{
+    display:inline-block;
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:999px;
+    padding:2px 14px;
+    font-size:13px;
+    letter-spacing:.15em;
+    margin-bottom:16px;
+  }
+  .hero h1{font-size:42px;line-height:1.25;letter-spacing:.04em;}
+  .hero .dates{font-size:19px;margin-top:12px;color:#E8E4F5;}
+  .hero .route{font-size:15px;margin-top:6px;color:#BFC7DE;}
+  .countdown{
+    margin:26px auto 0;
+    display:inline-block;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:14px;
+    padding:14px 26px;
+  }
+  .countdown .cd-label{font-size:13px;color:#D9DDF0;letter-spacing:.08em;}
+  .countdown .cd-value{font-size:30px;font-weight:700;margin-top:2px;}
+  .countdown .cd-sub{font-size:13px;color:#BFC7DE;}
+
+  /* ---------- Sections ---------- */
+  h2.day-title{
+    color:var(--navy);
+    font-size:24px;
+    margin:36px 0 14px;
+    padding-bottom:6px;
+    border-bottom:3px solid var(--navy);
+  }
+  h2.section-title{
+    color:var(--navy);
+    font-size:24px;
+    margin:36px 0 14px;
+    padding-bottom:6px;
+    border-bottom:3px solid var(--navy);
+  }
+  .card{
+    background:#FFFFFF;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:18px 18px 14px;
+    margin-bottom:14px;
+  }
+  .card-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px 10px;
+    margin-bottom:6px;
+  }
+  .time{
+    font-weight:700;
+    color:var(--navy);
+    font-size:16px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:1px 10px;
+    white-space:nowrap;
+  }
+  .item-title{font-size:19px;font-weight:700;color:var(--navy2);}
+  .place{font-size:14px;color:var(--muted);margin-bottom:6px;}
+  .memo{font-size:15.5px;}
+  .memo .lead-decided{font-weight:700;color:var(--accent);}
+
+  /* ---------- Chips ---------- */
+  .chip{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:700;
+    border-radius:999px;
+    padding:2px 12px;
+    white-space:nowrap;
+  }
+  .chip-decided{background:var(--chip-decided-bg);color:var(--chip-decided-fg);}
+  .chip-candidate{background:var(--chip-candidate-bg);color:var(--chip-candidate-fg);border:1px solid #D9C25E;}
+  .chip-idea{background:var(--chip-idea-bg);color:var(--chip-idea-fg);border:1px solid #C9C9C9;}
+
+  /* ---------- Booking cards ---------- */
+  .booking-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:640px){.booking-grid{grid-template-columns:1fr 1fr;}}
+  .booking-grid .card{margin-bottom:0;}
+  .booking-grid .card.wide{grid-column:1 / -1;}
+  .booking-label{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.06em;margin-bottom:4px;}
+  .booking-main{font-size:18px;font-weight:700;color:var(--navy);}
+  .booking-sub{font-size:15px;margin-top:2px;}
+  .flight-arrow{font-weight:700;color:var(--navy2);}
+
+  /* ---------- Checklist ---------- */
+  .progress-wrap{margin:6px 0 14px;}
+  .progress-track{
+    background:var(--bar-bg);
+    border-radius:999px;
+    height:16px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    background:var(--bar-fill);
+    height:100%;
+    width:0%;
+    border-radius:999px;
+    transition:width .25s ease;
+  }
+  .progress-text{font-size:14px;color:var(--muted);margin-top:4px;}
+  .check-item{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:9px 2px;
+    border-bottom:1px dashed var(--line);
+    cursor:pointer;
+  }
+  .check-item:last-child{border-bottom:none;}
+  .check-item input[type="checkbox"]{
+    width:22px;height:22px;
+    margin-top:3px;
+    flex-shrink:0;
+    accent-color:var(--navy);
+    cursor:pointer;
+  }
+  .check-item.done span{color:var(--muted);text-decoration:line-through;}
+  .note-small{font-size:13px;color:var(--muted);margin-top:10px;}
+
+  footer{
+    margin-top:48px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    font-size:13px;
+    color:var(--muted);
+    text-align:center;
+  }
+  @media(max-width:480px){
+    body{font-size:16px;}
+    .hero h1{font-size:34px;}
+    .hero .dates{font-size:17px;}
+    .countdown .cd-value{font-size:25px;}
+    h2.day-title,h2.section-title{font-size:21px;}
+    .item-title{font-size:17.5px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="kicker">TAIPEI TRIP</span>
+  <h1>台湾旅行 2026</h1>
+  <p class="dates">2026年11月20日（金）〜23日（月・祝）</p>
+  <p class="route">セントレア → 台北（桃園）／3泊4日</p>
+  <div class="countdown" aria-live="polite">
+    <div class="cd-label">出発まで（CX531 16:40発）</div>
+    <div class="cd-value" id="cd-value">計算中…</div>
+    <div class="cd-sub" id="cd-sub"></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ===== 予約情報 ===== -->
+  <h2 class="section-title">予約情報</h2>
+  <div class="booking-grid">
+    <div class="card">
+      <div class="booking-label">往路フライト</div>
+      <div class="booking-main">CX531 キャセイパシフィック航空</div>
+      <div class="booking-sub">11/20（金）16:40 セントレア発 <span class="flight-arrow">→</span> 19:10 桃園国際空港着</div>
+      <p class="memo" style="margin-top:8px;">JTBオンライン予約（受付番号 HP7YJ8）。エコノミー2席・座席指定なし。ターミナルは当日確認。</p>
+    </div>
+    <div class="card">
+      <div class="booking-label">復路フライト</div>
+      <div class="booking-main">CX530 キャセイパシフィック航空</div>
+      <div class="booking-sub">11/23（月・祝）12:00 桃園国際空港発 <span class="flight-arrow">→</span> 15:35 セントレア着</div>
+      <p class="memo" style="margin-top:8px;">空港には10:00前後着が目安。08:45にホテル出発。</p>
+    </div>
+    <div class="card wide">
+      <div class="booking-label">ホテル（3泊）</div>
+      <div class="booking-main">エバーグリーン ローレル ホテル 台北（長榮桂冠酒店）</div>
+      <div class="booking-sub">11/20〜23・3泊・デラックスルーム・朝食付き（無料）</div>
+      <p class="memo" style="margin-top:8px;">松江路63号。MRT松江南京駅4番出口から徒歩約5分。朝食06:30–10:00。徒歩約2分に台北犁記（パイナップルケーキの老舗）。</p>
+    </div>
+  </div>
+
+  <!-- ===== 11/20 ===== -->
+  <h2 class="day-title">11月20日（金）— 出発・到着</h2>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="time">16:40発</span>
+      <span class="item-title">台北へ出発</span>
+      <span class="chip chip-decided">決定</span>
+    </div>
+    <div class="place">セントレア → 桃園国際空港</div>
+    <p class="memo">CX531、19:10桃園着。入国に約1時間。空港MRT直達車で台北駅へ（約35分・NT$160）→タクシーでホテル、21:00頃着。夕食は林東芳牛肉麵（徒歩約10分）が本命、遅れたら寧夏路夜市かコンビニで軽く。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="item-title">ホテルにチェックイン</span>
+      <span class="chip chip-decided">決定</span>
+    </div>
+    <div class="place">エバーグリーンローレルホテル台北</div>
+  </div>
+
+  <!-- ===== 11/21 ===== -->
+  <h2 class="day-title">11月21日（土）— 故宮と夜市</h2>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="time">09:00–12:15</span>
+      <span class="item-title">国立故宮博物院</span>
+      <span class="chip chip-decided">決定</span>
+    </div>
+    <div class="place">士林区・至善路二段221号</div>
+    <p class="memo"><span class="lead-decided">決定。</span>08:10ホテル発、MRT松江南京→中山乗換→士林駅→紅30バス（約45–50分）。入館NT$350。開館直後に3階302室（翠玉白菜・肉形石）へ直行→305室の毛公鼎→2階の書画・陶磁器→1階の特別展・多宝格。音声ガイド（日本語NT$150）推奨。翠玉白菜は11/29まで台北展示で間に合う。昼食は故宮晶華が候補（予約要否は未確認）。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="time">14:30–16:30</span>
+      <span class="item-title">午後フリー（休憩／士林官邸／中山カフェ）</span>
+      <span class="chip chip-candidate">候補</span>
+    </div>
+    <div class="place">ホテル周辺ほか</div>
+    <p class="memo">本命はホテルに戻って休憩し、夜市に備える。雨なら華山1914文創園区（ホテル至近のインドア施設）が受け皿。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="time">17:30–20:30</span>
+      <span class="item-title">士林夜市</span>
+      <span class="chip chip-decided">決定</span>
+    </div>
+    <div class="place">MRT剣潭駅 1番出口すぐ</div>
+    <p class="memo"><span class="lead-decided">決定。</span>ホテルからMRTで約25分。豪大大雞排、忠誠號蚵仔煎、生炒花枝羹、青蛙下蛋が必食。雨なら地下1階の美食区中心に。土曜夜は混雑するので貴重品は前に抱える。</p>
+  </div>
+
+  <!-- ===== 11/22 ===== -->
+  <h2 class="day-title">11月22日（日）— 九份</h2>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="time">08:00発 – 18:30帰着</span>
+      <span class="item-title">九份へ日帰り</span>
+      <span class="chip chip-decided">決定</span>
+    </div>
+    <div class="place">新北市瑞芳区</div>
+    <p class="memo"><span class="lead-decided">決定。</span>日曜で大混雑のため08:00出発を死守。本命ルート：忠孝復興から直行バス1062（約70–90分・NT$94）で九份老街。基山街で芋圓・草仔粿→豎崎路の阿妹茶樓でお茶。帰りは15:30–16:00発が推奨（夕方は大渋滞）。代替は台鉄・瑞芳経由。折りたたみ傘と滑りにくい靴が必須。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="time">九份を午前で切り上げた場合</span>
+      <span class="item-title">（足を伸ばすなら）十分で天燈上げ</span>
+      <span class="chip chip-idea">アイデア</span>
+    </div>
+    <div class="place">平渓線・十分老街</div>
+    <p class="memo">瑞芳経由で九份と相性が良い。ただし日曜に両方は過密。行くなら九份は午前中に切り上げる前提。</p>
+  </div>
+
+  <!-- ===== 11/23 ===== -->
+  <h2 class="day-title">11月23日（月・祝）— 帰国</h2>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="time">07:45–08:30</span>
+      <span class="item-title">行天宮（任意）</span>
+      <span class="chip chip-candidate">候補</span>
+    </div>
+    <div class="place">MRT行天宮駅</div>
+    <p class="memo">ホテルからMRT橙線で1駅。朝の参拝風景が見られる関帝廟。行かなければゆっくり朝食と荷造りを優先。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="time">12:00発</span>
+      <span class="item-title">帰国</span>
+      <span class="chip chip-decided">決定</span>
+    </div>
+    <div class="place">桃園国際空港 → セントレア</div>
+    <p class="memo">CX530、15:35セントレア着。08:45ホテル出発→タクシーで台北駅→空港MRT直達車（約35分）で10:00前後に空港着。朝の観光は欲張らない。</p>
+  </div>
+
+  <!-- ===== 持ち物 ===== -->
+  <h2 class="section-title">持ち物チェックリスト</h2>
+  <div class="card">
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-text" id="progress-text">0 / 6 準備済み</div>
+    </div>
+    <div id="checklist">
+      <label class="check-item"><input type="checkbox" class="pack-check"><span>パスポート（有効期限6か月以上）</span></label>
+      <label class="check-item"><input type="checkbox" class="pack-check"><span>薄い羽織りもの（故宮の冷房・夜の冷え対策）</span></label>
+      <label class="check-item"><input type="checkbox" class="pack-check"><span>折りたたみ傘（九份・台北の雨対策）</span></label>
+      <label class="check-item"><input type="checkbox" class="pack-check"><span>滑りにくい靴（九份の石段用）</span></label>
+      <label class="check-item"><input type="checkbox" class="pack-check"><span>モバイルバッテリー・充電ケーブル</span></label>
+      <label class="check-item"><input type="checkbox" class="pack-check"><span>現金（NT$両替分・夜市とタクシーは現金前提）</span></label>
+    </div>
+    <p class="note-small">※ チェックはこのページ内だけの表示で、保存されません（ページを閉じるとリセットされます）。</p>
+  </div>
+
+  <footer>
+    このページはMuseスペース「台湾旅行 2026」の公開スナップショットです
+  </footer>
+
+</div>
+
+<script>
+  // ---- カウントダウン（CX531出発 2026-11-20T16:40+09:00 まで） ----
+  (function(){
+    var target = new Date("2026-11-20T16:40:00+09:00").getTime();
+    var valueEl = document.getElementById("cd-value");
+    var subEl = document.getElementById("cd-sub");
+    function pad(n){ return (n < 10 ? "0" : "") + n; }
+    function tick(){
+      var now = Date.now();
+      var diff = target - now;
+      if (diff <= 0) {
+        valueEl.textContent = "出発しました！";
+        subEl.textContent = "よい旅を ✈";
+        return;
+      }
+      var totalSec = Math.floor(diff / 1000);
+      var days = Math.floor(totalSec / 86400);
+      var hours = Math.floor((totalSec % 86400) / 3600);
+      var mins = Math.floor((totalSec % 3600) / 60);
+      var secs = totalSec % 60;
+      valueEl.textContent = "あと " + days + "日 " + pad(hours) + "時間 " + pad(mins) + "分 " + pad(secs) + "秒";
+      subEl.textContent = "2026年11月20日（金）16:40 CX531 セントレア発";
+      setTimeout(tick, 1000);
+    }
+    tick();
+  })();
+
+  // ---- 持ち物チェックリスト（ページ内のみ・保存なし） ----
+  (function(){
+    var checks = document.querySelectorAll(".pack-check");
+    var fill = document.getElementById("progress-fill");
+    var text = document.getElementById("progress-text");
+    var total = checks.length;
+    function update(){
+      var done = 0;
+      checks.forEach(function(cb){
+        if (cb.checked) { done++; }
+        cb.closest(".check-item").classList.toggle("done", cb.checked);
+      });
+      var pct = total ? Math.round(done / total * 100) : 0;
+      fill.style.width = pct + "%";
+      text.textContent = done + " / " + total + " 準備済み（" + pct + "%）";
+    }
+    checks.forEach(function(cb){ cb.addEventListener("change", update); });
+    update();
+  })();
+</script>
+</body>
+</html>
